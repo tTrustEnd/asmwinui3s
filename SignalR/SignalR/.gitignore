@@ -1,0 +1,36 @@
+﻿# Thư mục nhị phân
+/bin/
+/obj/
+
+# Tệp cấu hình NuGet
+*.nupkg
+packages/
+*.props
+*.targets
+
+# Tệp nhị phân DLL
+*.dll
+
+# Thư mục chứa gói NuGet
+*.cache
+*.config
+*.json
+
+# Tệp tạm thời
+*.tmp
+*.log
+
+# Thư mục dữ liệu tạm thời của IDE
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Tệp từ Visual Studio
+*.sln.ide
+
+# Tệp và thư mục liên quan đến cài đặt
+*.vs/
+*.vscode/

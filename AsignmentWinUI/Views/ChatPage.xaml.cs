@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,10 +24,20 @@ namespace AsignmentWinUI.Views;
 /// </summary>
 public sealed partial class ChatPage : Page
 {
-    public ChatViewModel chatViewModel;
+    public ChatViewModel ChatViewModel;
     public ChatPage()
     {
-        chatViewModel = App.GetService<ChatViewModel>();
+        ChatViewModel = App.GetService<ChatViewModel>();
         this.InitializeComponent();
+    }
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+
+        // Kiểm tra và lấy tham số truyền vào
+        if (e.Parameter is string param && !string.IsNullOrEmpty(param))
+        {
+            ChatViewModel.Acc.UserName = param;
+        }
     }
 }

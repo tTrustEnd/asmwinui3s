@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Hosting;
+using Microsoft.UI.Xaml.Controls;
 
 namespace AsignmentWinUI.ViewModels;
 
@@ -21,6 +22,7 @@ public partial class MainViewModel : ObservableRecipient
         INavigationService navigationService
         )
     {
+        Debug.WriteLine("INIT MainViewModel");
         _navigationService = navigationService;
         _signalRService = signalRService;
        _signalRService.ConnectAsync("http://localhost:5192/chathub");
@@ -29,22 +31,16 @@ public partial class MainViewModel : ObservableRecipient
     [RelayCommand]
     public void JoinChatPage()
     {
-        _navigationService.NavigateTo(typeof(ChatViewModel).FullName, "JELL");
-
-    }
-    [RelayCommand]
-    public async Task<IEnumerable<Message>> GetOnlineGroupMembers()
-    {
-        try
+        Debug.WriteLine("@");
+            try
         {
-            await _signalRService.GetOnlineGroupMembers(1);
+            _navigationService.NavigateTo(typeof(ChatViewModel).FullName);
+
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"GetOnlineGroupMembers: {ex.Message}");
+            Debug.WriteLine($"esssx: {ex.Message}");
             throw;
         }
-        return null;
     }
-
 }

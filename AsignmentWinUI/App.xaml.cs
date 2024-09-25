@@ -8,6 +8,7 @@ using AsignmentWinUI.Core.Infrastructure.SpLite.Repositories;
 using AsignmentWinUI.Core.UseCases._Repositories;
 using AsignmentWinUI.Core.UseCases.GetMessageUseCase;
 using AsignmentWinUI.Core.UseCases.GetOnlineGroupMemberUseCase;
+using AsignmentWinUI.Core.UseCases.LoginUseCase;
 using AsignmentWinUI.Core.UseCases.Repositories;
 using AsignmentWinUI.Core.UseCases.SendMessageUseCase;
 using AsignmentWinUI.Core.UseCases.Services;
@@ -19,6 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace AsignmentWinUI;
 
@@ -34,7 +36,6 @@ public partial class App : Application
     {
         get;
     }
-
     public static T GetService<T>()
         where T : class
     {
@@ -66,23 +67,27 @@ public partial class App : Application
             // Services
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
-
             services.AddSingleton<INavigationService, NavigationService>();
+
             services.AddTransient<ISignalRService, SignalRService>();
 
             // Core Services
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlite("Data Source=app.db"));
+
             services.AddTransient<ISendMessageUseCase, SendMessageUseCase>();
             services.AddTransient<IGetMessageUseCase, GetMessageUseCase>();
             services.AddTransient<IGetOnlineGroupMemberUseCase, GetOnlineGroupMemberUseCase>();
+            services.AddTransient<ILoginUseCase, LoginUseCase>();
 
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddTransient<IGroupMembersRepository, GroupMemberRepository>();
 
             services.AddTransient<IMessageService>(services => new MessageService(
                 services.GetRequiredService<ISendMessageUseCase>(),
                 services.GetRequiredService<IGetMessageUseCase>()));
+
             // Views and ViewModels
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();

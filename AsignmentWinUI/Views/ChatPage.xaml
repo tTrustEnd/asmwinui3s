@@ -5,36 +5,67 @@
     xmlns:local="using:AsignmentWinUI.Views"
     xmlns:vm="using:AsignmentWinUI.ViewModels"
     >
-
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Danh sách người dùng online -->
-        <StackPanel Grid.Column="0" Background="LightGray">
-            <TextBlock Text="Online Users" FontSize="24" FontWeight="Bold" Margin="10"/>
-            <ItemsControl x:Name="OnlineUsersList" Margin="10">
-                <!-- Binding sẽ được thêm sau -->
-            </ItemsControl>
-        </StackPanel>
-
-        <!-- Khung chat -->
-        <StackPanel Grid.Column="1">
-            <TextBlock Text="Chat" FontSize="24" FontWeight="Bold" Margin="10"/>
-            <ScrollViewer x:Name="ChatScrollViewer" VerticalScrollBarVisibility="Auto" Margin="10">
-                <StackPanel x:Name="ChatMessagesList">
-                    <!-- Các tin nhắn sẽ được thêm sau -->
-                </StackPanel>
+        <!-- Right -->
+        <Grid Grid.Column="0" Background="RosyBrown">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Online Users" FontSize="24" FontWeight="Bold" Margin="10"/>
+            <!--Users Online-->
+            <ScrollViewer Grid.Row="1" x:Name="ChatScrollOnlineUsersListView" VerticalScrollBarVisibility="Auto" Margin="10">
+                <ListView x:Name="OnlineUsersListView" Margin="10">
+            
+                </ListView>
             </ScrollViewer>
+            <!--NewWindow-->
+            <Button Command="{x:Bind ChatViewModel.CreateNewWindowCommand}"
+                    Grid.Row="2" Content="NewWindow" Margin="10"/>
+            <Button Command="{x:Bind ChatViewModel.CheckNameCommand}"
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    Content="Back" Margin="10"/>
+        </Grid>
 
-            <TextBox x:Name="MessageInput" 
-                     Text="{x:Bind chatViewModel.NewMessage, Mode=TwoWay}"
-                     PlaceholderText="Type your message..." Margin="10"/>
-            <Button Content="Send" 
-                    Command="{x:Bind chatViewModel.SendMessageCommand}"  
-                    Margin="10"/>
-        </StackPanel>
+        <!-- chatView -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Row="0" Text="Chat" FontSize="24" FontWeight="Bold" Margin="10"/>
+             <!--ListMsg-->
+            <ScrollViewer Grid.Row="1" x:Name="ChatScrollViewer" VerticalScrollBarVisibility="Auto" Margin="10">
+                <ListView x:Name="ChatMessagesListView">
+                    <ListViewItem Content="a"/>
+                    <ListViewItem Content="b"/>
+                    <ListViewItem Content="c"/>
+                    <ListViewItem Content="d"/>
+                </ListView>
+            </ScrollViewer>
+            <!--Type your message-->
+            <Grid Grid.Row="2">
+                <TextBox x:Name="MessageInput" 
+                         Text="{x:Bind ChatViewModel.NewMessage, Mode=TwoWay}"
+                         PlaceholderText="Type your message..." Margin="10"
+                     />
+                <Button Command="{x:Bind ChatViewModel.SendMessageCommand}"  
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="15"
+                    >
+                    <SymbolIcon Symbol="Send"/>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

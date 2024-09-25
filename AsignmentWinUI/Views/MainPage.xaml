@@ -6,8 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource SolidBackgroundFillColorBaseBrush}"
     mc:Ignorable="d">
-
-    <Grid x:Name="ContentArea" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="20">
+    <Grid>
+        <Grid x:Name="ContentArea" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
@@ -17,14 +17,16 @@
             <TextBlock
             Text="Name: "
             Style="{StaticResource PageTitleStyle}" />
-            <TextBox Height="30" Width="100"/>
+            <TextBox x:Name="UserNameTexBox" Height="30" Width="100"/>
         </StackPanel>
 
         <Grid Grid.Row="1">
             <Button Grid.Row="1" Content="Join" Width="180"
-                    Command="{x:Bind ViewModel.JoinChatPageCommand}"
+                   
+                   Click="JoinChat"
                     />
         </Grid>
         
+    </Grid>
     </Grid>
 </Page>
